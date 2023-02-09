@@ -1,1 +1,26 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 
+    	<title>TestApp</title>
+
+		<link rel="manifest" href="./manifest.json">
+		<script src="./app.js"></script>
+		<script src="./sw.js"></script>
+  	</head>
+
+	<body>
+    	<h1>TestApp</h1>
+		<canvas id="stage"></canvas>
+		<!--<img src="logo.svg">-->
+
+		<script>
+			window.onload = function()
+			{
+				registServiceWorker();
+			}
+		</script>
+	</body>
+
+</html>
