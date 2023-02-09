@@ -10,3 +10,19 @@ function registServiceWorker()
 	}
 }
 
+function sendMail()
+{
+	address = 'test_adress@co.jp';
+	subject = 'テスト件名';
+	body = '本文テスト';
+	location.href = 'mailto:' + address + '?subject=' + subject + '&body=' + body;
+}
+
+function removePWACache()
+{
+	navigator.serviceWorker.getRegistration()
+		.then(registration => {
+			registration.unregister();
+		});
+	window.location.reload(true);
+}
