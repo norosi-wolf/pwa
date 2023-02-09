@@ -1,4 +1,7 @@
 
+const WIDTH = 960;
+const HEIGHT = 540;
+
 let GlobalValue = {
 	mouse_x: 0,
 	mouse_y: 0,
@@ -6,6 +9,7 @@ let GlobalValue = {
 	camera: null,
 	renderer: null,
 	scene: null,
+	box: null,
 }
 
 function initialize()
@@ -17,31 +21,25 @@ function initialize()
 
 	registServiceWorker();
 
-	const width = 960;
-	const height = 540;
-
 	GlobalValue.renderer = new THREE.WebGLRenderer({
 		canvas: document.querySelector("#stage")
 	});
-	GlobalValue.renderer.setSize(width, height);
+	GlobalValue.renderer.setSize(WIDTH, HEIGHT);
 	GlobalValue.renderer.setPixelRatio(`window`.devicePixelRatio);
 
 	GlobalValue.scene = new THREE.Scene();
 	
 	// camera
-	GlobalValue.camera = new THREE.PerspectiveCamera(45, width / height, 1, 10000);
+	GlobalValue.camera = new THREE.PerspectiveCamera(45, WIDTH / HEIGHT, 1, 10000);
 	GlobalValue.camera.position.set(0, 0, 1000);
-
-	//
-	//var controls = new THREE.OrbitControls(camera);
 
 	// box
 	const geometry = new THREE.BoxGeometry(500, 500, 500);
 	const material = new THREE.MeshStandardMaterial({
 		color: 0x0000ff
 	});
-	const box = new THREE.Mesh(geometry, material);
-	GlobalValue.scene.add(box);
+	GlobalValue.box = new THREE.Mesh(geometry, material);
+	GlobalValue.scene.add(GlobalValue.box);
 	
     //box.rotation.x = 40.1;
     //box.rotation.y = 40.1;
@@ -64,7 +62,7 @@ function initialize()
 		{
 			vertices.push(new THREE.Vector3(3000 * (Math.random() - 0.5), 3000 * (Math.random() - 0.5), 3000 * (Math.random() - 0.5)));
 		}
-		
+
 		const geometry = new THREE.BufferGeometry();
 		geometry.setFromPoints(vertices);
 
@@ -87,6 +85,9 @@ function tick()
 	const radian = GlobalValue.rotate * Math.PI / 180;
 	GlobalValue.camera.position.x = 1500 * Math.sin(radian);
 	GlobalValue.camera.position.z = 1500 * Math.cos(radian);
+
+	GlobalValue.box.rotation.x += 0.01;
+	GlobalValue.box.rotation.y += 0.01;
 
 	//
 	GlobalValue.camera.lookAt(new THREE.Vector3(0, 0, 0));
