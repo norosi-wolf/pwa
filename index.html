@@ -6,24 +6,29 @@
     	<title>TestApp</title>
 
 		<link rel="manifest" href="./manifest.json">
-		<script src="./threejs/three.min.js"></script>
-		<script src="./app.js"></script>
-		<script src="./sw.js"></script>
+		<script src="./assets/js/three/three.min.js"></script>
+		<script src="./assets/js/stats/stats.min.js"></script>
+		<script src="./assets/js/mouse.js"></script>
+		<script src="./assets/js/app.js"></script>
+		<script src="./assets/js/sw.js"></script>
   	</head>
 
 	<body>
     	<h1>TestApp</h1>
     	<a href="javascript:sendMail();">メーラー起動テスト</a><br />
     	<a href="javascript:removePWACache();">キャッシュ削除</a><br />
-		<canvas id="stage"></canvas>
+		<canvas id="stage"></canvas><br />
+		FPS: <output id="result">0</output><br />
 		
 
 
 		<script>
 			window.onload = function()
 			{
-				initialize();
 				registServiceWorker();
+
+				const app = new App();
+				app.start();
 			}
 		</script>
 	</body>
